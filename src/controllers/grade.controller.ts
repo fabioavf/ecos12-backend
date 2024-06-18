@@ -14,11 +14,12 @@ const createGrade = async (req: Request, res: Response) => {
     idGrade,
     curso,
     ano,
+    periodos: [],
   };
 
-  const gradeCreated = Grade.create(gradeInput);
+  const gradeCreated = await Grade.create(gradeInput);
 
-  return res.status(201).json({ data: gradeCreated });
+  return res.status(201).json(gradeCreated);
 };
 
 const getAllGrades = async (req: Request, res: Response) => {

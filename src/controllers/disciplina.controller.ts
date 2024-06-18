@@ -19,9 +19,9 @@ const createDisciplina = async (req: Request, res: Response) => {
     coRequisito,
   };
 
-  const disciplinaCreated = Disciplina.create(disciplinaInput);
+  const disciplinaCreated = await Disciplina.create(disciplinaInput);
 
-  return res.status(201).json({ data: disciplinaCreated });
+  return res.status(201).json(disciplinaCreated);
 };
 
 const getAllDisciplinas = async (req: Request, res: Response) => {
@@ -73,4 +73,16 @@ const deleteDisciplina = async (req: Request, res: Response) => {
   return res.status(200).json({ data: 'Disciplina deleted' });
 };
 
-export { createDisciplina, getAllDisciplinas, getDisciplina, updateDisciplina, deleteDisciplina };
+const findByName = async (req: Request, res: Response) => {
+  const { codDisciplina } = req.body;
+
+  const disciplina = await Disciplina.findOne({ codDisciplina });
+
+  if (!disciplina) {
+    return res.status(404).json({ message: `Disciplina with name "${codDisciplina}" not found.` });
+  }
+
+  return res.status(200).json({ data: disciplina });
+};
+
+export { createDisciplina, getAllDisciplinas, getDisciplina, updateDisciplina, deleteDisciplina, findByName };

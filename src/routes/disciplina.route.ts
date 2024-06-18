@@ -1,10 +1,19 @@
 import { Router } from 'express';
-import { createDisciplina, deleteDisciplina, getAllDisciplinas, getDisciplina, updateDisciplina } from 'src/controllers/disciplina.controller';
+import {
+  createDisciplina,
+  deleteDisciplina,
+  findByName,
+  getAllDisciplinas,
+  getDisciplina,
+  updateDisciplina,
+} from '../controllers/disciplina.controller';
 
 const disciplinaRoute = () => {
   const router = Router();
 
   router.post('/disciplinas', createDisciplina);
+
+  router.post('/findDisciplina', findByName);
 
   router.get('/disciplinas', getAllDisciplinas);
 

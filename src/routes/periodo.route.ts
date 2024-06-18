@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createPeriodo, deletePeriodo, getAllPeriodos, getPeriodo, updatePeriodo } from 'src/controllers/periodo.controller';
+import { createPeriodo, deletePeriodo, getAllPeriodos, getPeriodo, updatePeriodo } from '../controllers/periodo.controller';
 
 const periodoRoute = () => {
   const router = Router();

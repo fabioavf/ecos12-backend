@@ -13,11 +13,12 @@ const createPeriodo = async (req: Request, res: Response) => {
   const periodoInput: PeriodoInput = {
     idPeriodo,
     periodo,
+    disciplinas: [],
   };
 
-  const periodoCreated = Periodo.create(periodoInput);
+  const periodoCreated = await Periodo.create(periodoInput);
 
-  return res.status(201).json({ data: periodoCreated });
+  return res.status(201).json(periodoCreated);
 };
 
 const getAllPeriodos = async (req: Request, res: Response) => {
