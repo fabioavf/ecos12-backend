@@ -5,25 +5,27 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { updateReferences } from './updateReferences';
 import { createCollectionAndInsertDocuments } from './insertCollection';
+import cors from 'cors';
 
 const express = require('express');
 const body = require('body-parser');
 const url = 'mongodb://localhost:27017/unifei';
 
 const dbName = 'unifei';
-const collectionsName = [ 'cursos', 'grades', 'periodos', 'disciplinas'];
+const collectionsName = ['cursos', 'grades', 'periodos', 'disciplinas'];
 const fileNames = ['cursosUnifei', 'gradeEco2015', 'periodosEco', 'disciplinasEco'];
 let allCollectionsCreated = false;
 
 async function start() {
   try {
     const app = express();
+    app.use(cors());
 
     const mongo = await MongoClient.connect(url);
     await mongo.connect();
     app.db = mongo.db();
 
-     app.use(
+    app.use(
       body.json({
         limit: '10mb',
       }),
@@ -38,10 +40,9 @@ async function start() {
     });
 
     collectionsName.forEach(async (collectionName, index) => {
-        await createCollectionAndInsertDocuments(mongo, fileNames[index], collectionName)
-        if(index === collectionsName.length - 1) updateReferences(mongo);
+      await createCollectionAndInsertDocuments(mongo, fileNames[index], collectionName);
+      if (index === collectionsName.length - 1) updateReferences(mongo);
     });
-
   } catch (error) {
     console.error(error);
   }

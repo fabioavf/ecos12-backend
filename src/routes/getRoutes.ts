@@ -1,13 +1,15 @@
-import { getCurso } from "../controllers/getCurso";
-import { getDisciplinas } from "../controllers/getDisciplinas";
-import { getGrade } from "../controllers/getGrade";
-import { getPeriodo } from "../controllers/getPeriodo";
-
-const express = require('express');
+import { getGrades } from '../controllers/getGrades';
+import { getCurso } from '../controllers/getCurso';
+import { getDisciplinas } from '../controllers/getDisciplinas';
+import { getGrade } from '../controllers/getGrade';
+import { getPeriodo } from '../controllers/getPeriodo';
+import express from 'express';
 
 const router = express.Router();
 
 // console.log(router);
+
+router.get('/grades', getGrades);
 
 router.get('/grade/:idGrade', getGrade);
 
